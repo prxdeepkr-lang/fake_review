@@ -1,5 +1,40 @@
 # Review Fraud Detection & Trust Scoring System
 
+## Quick Start
+
+```bash
+# 1. Database (self-contained Postgres 16 + pgvector, no sudo required)
+cd fake_review
+./scripts/db.sh start
+./scripts/db.sh psql -f db/schema.sql
+./scripts/db.sh psql -f db/indexes.sql
+./scripts/db.sh psql -f db/views.sql
+./scripts/db.sh psql -f db/triggers.sql
+
+# 2. Backend API (port 4000)
+npm install
+npm run seed     # populates 9 demo fraud scenarios
+node server.js   # or: npm start
+
+# 3. Frontend (port 5173), in a separate terminal
+cd frontend
+npm install
+npm run dev
+```
+
+Then open **http://localhost:5173**. Seeded admin login:
+`admin@fakereview.test` / `admin12345`. Register any email/password as a
+customer to try the customer-facing flow.
+
+Other useful commands (run from the project root):
+
+```bash
+npm run seed           # reset the DB to fresh demo data
+npm test                # run the Jest + Supertest suite
+./scripts/db.sh status  # check whether Postgres is running
+./scripts/db.sh psql    # open a psql shell on the app database
+```
+
 ## 1. Project Title
 
 Review Fraud Detection & Trust Scoring System -- a small e-commerce
